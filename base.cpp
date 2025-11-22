@@ -40,17 +40,19 @@ PackageInfo read_control(const fs::path &control_path) {
 // Simple install: extract and copy files
 int install_package(const std::string &pkg_path) {
 
-    fs::path extract_dir = "/tmp/pms_extract";
-    fs::remove_all(extract_dir);
-    fs::create_directories(extract_dir);
+    fs::path tmp = "/tmp/pms_extract";
+    fs::remove_all(tmp);
+    fs::create_directories(tmp);
 
-    // We must extract inside extract_dir
-    std::string ar_cmd = "cd " + extract_dir.string() +
-                         " && ar -x " + pkg_path;
+    // Extract using 'ar' (cd into tmp first)
+    std::string ar_cmd =
+        "cd " + tmp.string() + " && ar -x " + pkg_path;
+
     if (system(ar_cmd.c_str()) != 0) {
         std::cerr << "Failed to extract package" << std::endl;
         return 1;
-    }
+}
+
 
 
     // Expect data.tar
