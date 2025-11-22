@@ -1,0 +1,5 @@
+echo "Name?  "
+read name
+
+tar -cf data.tar -C pkgroot .
+ar -r $name.pms control/control data.tar
