@@ -5,32 +5,8 @@
 #include <vector>
 #include <string>
 #include <sstream>
-#include <unistd.h>
-#include <sys/types.h>
 
 namespace fs = std::filesystem;
-
-
-bool is_absolute_path(const std::string &path) {
-    // Absolute path in UNIX = starts with '/'
-    return !path.empty() && path[0] == '/';
-}
-
-void require_root() {
-    if (geteuid() != 0) {
-        std::cerr << "Error: you must run this command as root (sudo/doas).\n";
-        exit(1);
-    }
-}
-
-void require_absolute(const std::string &path) {
-    if (!is_absolute_path(path)) {
-        std::cerr << "Error: path must be an absolute path.\n";
-        std::cerr << "Example:   sudo pm install /home/user/test.pms\n";
-        exit(1);
-    }
-}
-
 
 // Very primitive package metadata
 struct PackageInfo {
