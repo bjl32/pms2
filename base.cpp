@@ -6,7 +6,6 @@
 #include <string>
 #include <sstream>
 #include <unistd.h>      // geteuid()
-#include <sys/types.h>   // uid_t
 
 namespace fs = std::filesystem;
 
