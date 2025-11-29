@@ -42,5 +42,6 @@
 
 # Jetbrains BS
 .idea/
-# KDE stuff
+
+# KDE dir files
 .directory
