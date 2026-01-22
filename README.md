@@ -12,9 +12,13 @@ PMS2 is a package manager for LFS/BLFS/SLFS/ALFS systems.
 - [SLFS](https://linuxfromscratch.org/slfs)
 
 
+## Packages
+All packages are currently located [here](https://github.com/bjl32/pmspax/)
+
 ## TODO
 
 - The Linux Kernel
 - fstab
 - Root password
 - tzselect
+
