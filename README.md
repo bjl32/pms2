@@ -10,3 +10,6 @@ PMS2 is a package manager for LFS/BLFS/SLFS/ALFS systems.
 - [BLFS](linuxfromscratch.org/blfs)
 - [ALFS/JHALFS](linuxfromscratch.org/alfs)
 - [SLFS](linuxfromscratch.org/slfs)
+
+## Packages
+All packages are currently located [here](https://github.com/bjl32/pmspax/)
