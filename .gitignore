@@ -45,3 +45,7 @@
 
 # KDE dir files
 .directory
+
+
+# VS Code
+.vscode/
