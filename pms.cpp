@@ -20,7 +20,7 @@ bool is_absolute_path(const std::string &path) {
 void require_root() {
     if (geteuid() != 0) {
         std::cerr << "Error: you must run this command as root (sudo/doas)." << std::endl;
-        exit(1);
+        exit(2);
     }
 }
 
@@ -28,7 +28,7 @@ void require_absolute(const std::string &path) {
     if (!is_absolute_path(path)) {
         std::cerr << "Error: package path must be an *absolute* path." << std::endl;
         std::cerr << "Example: sudo pms install /home/user/test.pms" << std::endl;
-        exit(1);
+        exit(3);
     }
 }
 
@@ -82,21 +82,21 @@ int install_package(const std::string &pkg_path) {
 
     if (system(ar_cmd.c_str()) != 0) {
         std::cerr << "Error: ar failed to extract package (file may not exist)" << std::endl;
-        return 1;
+        return 4;
     }
 
     // Expect data.tar
     fs::path data_tar = tmp / "data.tar";
     if (!fs::exists(data_tar)) {
         std::cerr << "Malformed package: data.tar missing" << std::endl;
-        return 1;
+        return 5;
     }
 
     // Extract data.tar
     std::string tar_cmd = "tar -xf " + data_tar.string() + " -C /";
     if (system(tar_cmd.c_str()) != 0) {
         std::cerr << "Failed to extract data.tar" << std::endl;
-        return 1;
+        return 6;
     }
 
     // Read metadata
@@ -119,7 +119,7 @@ int install_package(const std::string &pkg_path) {
 int main(int argc, char **argv) {
     if (argc < 3) {
         std::cout << "Usage: pms install <package.pms>" << std::endl;
-        return 0;
+        return 1;
     }
 
     std::string cmd = argv[1];
