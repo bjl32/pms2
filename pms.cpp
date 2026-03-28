@@ -24,14 +24,6 @@ void require_root() {
     }
 }
 
-void require_absolute(const std::string &path) {
-    if (!is_absolute_path(path)) {
-        std::cerr << "Error: package path must be an *absolute* path." << std::endl;
-        std::cerr << "Example: sudo pms install /home/user/test.pms" << std::endl;
-        exit(3);
-    }
-}
-
 // =======================================================
 // Package metadata
 // =======================================================
@@ -70,7 +62,9 @@ PackageInfo read_control(const fs::path &control_path) {
 
 int install_package(const std::string &pkg_path) {
     require_root();            // ← MUST BE ROOT
-    require_absolute(pkg_path); // ← PATH MUST BE ABSOLUTE
+
+    // Resolve to absolute path before we change working directory
+    fs::path abs_pkg_path = fs::absolute(pkg_path);
 
     fs::path tmp = "/tmp/pms_extract";
     fs::remove_all(tmp);
@@ -78,7 +72,7 @@ int install_package(const std::string &pkg_path) {
 
     // Extract using 'ar'
     std::string ar_cmd =
-        "cd " + tmp.string() + " && ar -x " + pkg_path;
+        "cd " + tmp.string() + " && ar -x " + abs_pkg_path.string();
 
     if (system(ar_cmd.c_str()) != 0) {
         std::cerr << "Error: ar failed to extract package (file may not exist)" << std::endl;
