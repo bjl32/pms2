@@ -6,7 +6,6 @@ read name
 mkdir $name
 mkdir $name/control
 mkdir $name/pkgroot
-mkdir $name/pkgroot/usr
 touch $name/control/control
 echo "Name: $name" > $name/control/control
 echo "======================="

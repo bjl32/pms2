@@ -93,6 +93,13 @@ int install_package(const std::string &pkg_path) {
         return 6;
     }
 
+    // Run postins.sh if it exists
+    fs::path postins = tmp / "postins.sh";
+    if (fs::exists(postins)) {
+        std::string postins_cmd = "bash " + postins.string();
+        system(postins_cmd.c_str());
+    }
+
     // Read metadata
     PackageInfo info = read_control(tmp / "control");
     std::cout << "Installed: " << info.name << " " << info.version << std::endl;
